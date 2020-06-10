@@ -15,7 +15,7 @@ namespace GeorgianComputers.Models
 
         [Key]
         public int ProductId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Product Name is Required")]
         [StringLength(255)]
         public string Name { get; set; }
         [StringLength(8000)]
