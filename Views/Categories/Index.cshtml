@@ -7,7 +7,7 @@
 
 <h1>Product Categories</h1>
 
-@if(User.Identity.IsAuthenticated)
+@if(User.IsInRole("Administrator"))
 {
     <p>
     <a asp-action="Create">Create New</a>
@@ -28,7 +28,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
-            @if (User.Identity.IsAuthenticated)
+            @if (User.IsInRole("Administrator"))
             {
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.CategoryId">Edit</a> |
