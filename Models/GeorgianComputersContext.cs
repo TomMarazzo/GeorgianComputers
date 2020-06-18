@@ -1,10 +1,13 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace GeorgianComputers.Models
 {
-    public partial class GeorgianComputersContext : DbContext
+        //MODIFY the DbContext to handle the User Identitites and the Roles
+        //Last parameter indicated the PK of UserId values as a string
+    public partial class GeorgianComputersContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
         public GeorgianComputersContext()
         {
@@ -25,13 +28,16 @@ namespace GeorgianComputers.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Data Source=(local);Initial Catalog=GeorgianComputers;Integrated Security=True");
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+//                optionsBuilder.UseSqlServer("Data Source=(local);Initial Catalog=GeorgianComputers;Integrated Security=True");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //ADD to get Identity to work!  This is a Bug fix!
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Cart>(entity =>
             {
                 entity.Property(e => e.CartId).IsUnicode(false);

@@ -31,8 +31,20 @@ namespace GeorgianComputers
             services.AddDbContext<GeorgianComputersContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<GeorgianComputersContext>();
+            //Configure Identity to work with out DBase
+            //USe our new AppliactionRole class to manage Roles and permissions
+            //point Identity to the existing GeorgianComputer DBase Context Class
+            //Use default cookei settings
+            services.AddIdentity<ApplicationUser, ApplicationRole>()
+                //.AddDefaultUI(UIFrameworkAttribute.Bootstrap4)
+                .AddRoles<ApplicationRole>()
+                .AddRoleManager<RoleManager<ApplicationRole>>()
+                .AddEntityFrameworkStores<GeorgianComputersContext>()
+                .AddDefaultTokenProviders();
+
+            //Replace with AddIdentity 
+            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            //    .AddEntityFrameworkStores<GeorgianComputersContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
