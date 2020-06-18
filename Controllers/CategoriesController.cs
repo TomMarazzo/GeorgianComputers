@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GeorgianComputers.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GeorgianComputers.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class CategoriesController : Controller
     {
         private readonly GeorgianComputersContext _context;
@@ -19,6 +21,7 @@ namespace GeorgianComputers.Controllers
         }
 
         // GET: Categories
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Category.ToListAsync());
@@ -116,6 +119,7 @@ namespace GeorgianComputers.Controllers
         }
 
         // GET: Categories/Delete/5
+        
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
