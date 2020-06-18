@@ -36,7 +36,7 @@ namespace GeorgianComputers
             //point Identity to the existing GeorgianComputer DBase Context Class
             //Use default cookei settings
             services.AddIdentity<ApplicationUser, ApplicationRole>()
-                //.AddDefaultUI(UIFrameworkAttribute.Bootstrap4)
+                .AddDefaultUI()
                 .AddRoles<ApplicationRole>()
                 .AddRoleManager<RoleManager<ApplicationRole>>()
                 .AddEntityFrameworkStores<GeorgianComputersContext>()
